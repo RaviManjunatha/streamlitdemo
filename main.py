@@ -98,7 +98,8 @@ if email_input:
         st.warning('Please insert OpenAI API Key. Instructions [here](https://help.openai.com/en/articles/4936850-where-do-i-find-my-secret-api-key)', icon="⚠️")
         st.stop()
 
-    llm = load_LLM(google_api_key=google_api_key)
+    llm = GooglePalm(google_api_key=google_api_key)
+    llm.temperature = 0.1
 
     prompt_with_email = prompt.format(tone=option_tone, dialect=option_dialect, email=email_input)
 
