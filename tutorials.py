@@ -1,36 +1,38 @@
+#Author - MrSentinel
+
 import streamlit as st
-import pandas as pd
-import numpy as np
+import google.generativeai as palm
+from dotenv import load_dotenv
+import os
 
-st.title('Uber pickups in NYC')
+load_dotenv()
 
-DATE_COLUMN = 'date/time'
-DATA_URL = ('https://s3-us-west-2.amazonaws.com/'
-            'streamlit-demo-data/uber-raw-data-sep14.csv.gz')
+API_KEY=os.environ.get("PALM_API_KEY")
+palm.configure(api_key=API_KEY)
 
-@st.cache_data
-def load_data(nrows):
-    data = pd.read_csv(DATA_URL, nrows=nrows)
-    lowercase = lambda x: str(x).lower()
-    data.rename(lowercase, axis='columns', inplace=True)
-    data[DATE_COLUMN] = pd.to_datetime(data[DATE_COLUMN])
-    return data
+def main():
+    st.image("./Google_PaLM_Logo.svg.webp", use_column_width=False, width=100)
+    st.header("Chat with PaLM")
+    st.write("")
 
-data_load_state = st.text('Loading data...')
-data = load_data(10000)
-data_load_state.text("Done! (using st.cache_data)")
+    prompt = st.text_input("Prompt please...", placeholder="Prompt", label_visibility="visible")
+    temp = st.slider("Temperature", 0.0, 1.0, step=0.05)    #Hyper parameter - range[0-1]
 
-if st.checkbox('Show raw data'):
-    st.subheader('Raw data')
-    st.write(data)
+    if st.button("SEND", use_container_width=True):
+        model = "models/text-bison-001"    #This is the only model currently available
 
-st.subheader('Number of pickups by hour')
-hist_values = np.histogram(data[DATE_COLUMN].dt.hour, bins=24, range=(0,24))[0]
-st.bar_chart(hist_values)
+        response = palm.generate_text(
+            model=model,
+            prompt=prompt,
+            temperature=temp,
+            max_output_tokens=1024
+        )
 
-# Some number in the range 0-23
-hour_to_filter = st.slider('hour', 0, 23, 17)
-filtered_data = data[data[DATE_COLUMN].dt.hour == hour_to_filter]
+        st.write("")
+        st.header(":blue[Response]")
+        st.write("")
 
-st.subheader('Map of all pickups at %s:00' % hour_to_filter)
-st.map(filtered_data)
+        st.markdown(response.result, unsafe_allow_html=False, help=None)
+
+if __name__ == "__main__":
+    main()
