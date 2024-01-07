@@ -37,7 +37,7 @@ prompt = PromptTemplate(
     template=template,
 )
 
-palm_api_key="AIzaSyDn9kTsd8b6pDI1ZTK_61K5-Ux4vF8U6A4"
+palm_api_key="AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA"
 
 def load_LLM(palm_api_key):
     """Logic for loading the chain you want to use should go here."""
