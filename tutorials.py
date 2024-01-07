@@ -2,12 +2,12 @@
 
 import streamlit as st
 import google.generativeai as palm
-from dotenv import load_dotenv
+#from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-API_KEY=os.environ.get("PALM_API_KEY")
+API_KEY=AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA
 palm.configure(api_key=API_KEY)
 
 def main():
