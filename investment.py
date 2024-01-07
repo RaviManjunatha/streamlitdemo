@@ -1,3 +1,6 @@
+API_KEY="AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA"
+palm.configure(api_key=API_KEY)
+
 from vertexai.preview.generative_models import (
     GenerationConfig,
     GenerativeModel,
@@ -101,6 +104,6 @@ st.header("Vertex AI Gemini API", divider="rainbow")
 #print("-------Prompt--------")
 #print_multimodal_prompt(contents)
 
-#print("\n-------Response--------")
-#for response in responses:
-    #print(response.text, end="")
+print("\n-------Response--------")
+for response in responses:
+    st.markdown(response.text, end ="") 
