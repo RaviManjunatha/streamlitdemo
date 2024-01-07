@@ -7,7 +7,7 @@ import os
 
 #load_dotenv()
 
-API_KEY=AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA
+API_KEY="AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA"
 palm.configure(api_key=API_KEY)
 
 def main():
