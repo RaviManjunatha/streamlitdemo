@@ -1,12 +1,12 @@
-API_KEY="AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA"
-palm.configure(api_key=API_KEY)
-
 from vertexai.preview.generative_models import (
     GenerationConfig,
     GenerativeModel,
     Image,
     Part,
 )
+
+API_KEY="AIzaSyA3rV2szITkxaWQX4PL8k4qOq7CHqHl7fA"
+palm.configure(api_key=API_KEY)
 
 multimodal_model = GenerativeModel("gemini-pro-vision")
 import http.client
